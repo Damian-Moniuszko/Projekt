@@ -1,5 +1,6 @@
-#ifdef WYNALEZK_H
-#define WYNALEZK_H
+#ifndef WYNALAZEK_H
+#define WYNALAZEK_H
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -24,5 +25,7 @@ typedef struct Wezel {
     Wynalazek dane;
     struct Wezel* nastepny;
 } Wezel;
+
+void wyswietlMenu();
 
 #endif
