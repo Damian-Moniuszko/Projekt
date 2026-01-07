@@ -12,4 +12,17 @@ typedef enum {
     NIESTABILNY
 } StatusWynalazku;
 
+typedef struct {
+    char nazwa[101];
+    char typ[51];
+    int niezawodnosc;
+    float zapotrzebowanieEnergii;
+    StatusWynalazku status;
+} Wynalazek;
+
+typedef struct Wezel {
+    Wynalazek dane;
+    struct Wezel* nastepny;
+} Wezel;
+
 #endif
