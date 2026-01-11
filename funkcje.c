@@ -71,3 +71,56 @@ void wyswietlWynalazki(Wezel* glowa) {
         aktualny = aktualny->nastepny;
     }
 }
+
+void zapiszDoPliku(Wezel* glowa, const char* nazwaPliku) {
+    FILE* plik = fopen(nazwaPliku, "w");
+    if (plik == NULL) {
+        printf("Nie mozna otworzyc pliku do zapisu.\n");
+        return;
+    }
+
+    Wezel* aktualny = glowa;
+    while (aktualny != NULL) {
+        fprintf(plik, "%s %s %d %.2f %d\n",
+                aktualny->dane.nazwa,
+                aktualny->dane.typ,
+                aktualny->dane.niezawodnosc,
+                aktualny->dane.zapotrzebowanieEnergii,
+                aktualny->dane.status);
+        aktualny = aktualny->nastepny;
+    }
+
+    fclose(plik);
+    printf("Dane zapisane pomyslnie do pliku %s\n", nazwaPliku);
+}
+
+void wczytajZPliku(Wezel** glowa, const char* nazwaPliku) {
+    FILE* plik = fopen(nazwaPliku, "r");
+    if (plik == NULL) {
+        printf("Nie mozna otworzyc pliku do odczytu.\n");
+        return;
+    }
+
+    Wynalazek tymczasowy;
+    int statusInt;
+
+    while (fscanf(plik, "%100s %50s %d %f %d",
+            tymczasowy.nazwa,
+            tymczasowy.typ,
+            &tymczasowy.niezawodnosc,
+            &tymczasowy.zapotrzebowanieEnergii,
+            &statusInt) == 5) {
+
+        tymczasowy.status = (StatusWynalazku)statusInt;
+
+        Wezel* nowy = stworzNowyWezel();
+        if (nowy != NULL) {
+            nowy->dane = tymczasowy;
+            nowy->nastepny = *glowa;
+            *glowa = nowy;
+        }
+    }
+
+    fclose(plik);
+    printf("Dane wczytane pomyslnie z pliku %s\n", nazwaPliku);
+}

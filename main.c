@@ -13,6 +13,8 @@ int main(int argc, char* argv[]){
 
     Wezel* pierwszyWynalazek = NULL;
 
+    wczytajZPliku(&pierwszyWynalazek, nazwaPliku);
+
     int wybor;
     do {
         wyswietlMenu();
@@ -35,7 +37,7 @@ int main(int argc, char* argv[]){
             break;
             
         case 6:
-            printf("Zamknij kartoteke");
+            zapiszDoPliku(pierwszyWynalazek, nazwaPliku);
             break;
         
         default:

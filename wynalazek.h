@@ -29,5 +29,7 @@ typedef struct Wezel {
 void wyswietlMenu();
 void dodajWynalazek(Wezel** glowa);
 void wyswietlWynalazki(Wezel* glowa);
+void zapiszDoPliku(Wezel* glowa, const char* nazwaPliku);
+void wczytajZPliku(Wezel** glowa, const char* nazwaPliku);
 
 #endif
