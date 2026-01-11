@@ -13,7 +13,35 @@ int main(int argc, char* argv[]){
 
     Wezel* pierwszyWynalazek = NULL;
 
-    wyswietlMenu();
+    int wybor;
+    do {
+        wyswietlMenu();
+
+        if (scanf("%d", &wybor) != 1) {
+            printf("Nieprawidlowy wybor. Sprobuj ponownie.\n");
+            while (getchar() != '\n');
+            wybor = 0;
+            continue;
+        }
+
+        switch (wybor)
+        {
+        case 1:
+            dodajWynalazek(&pierwszyWynalazek);
+            break;
+
+        case 2:
+            wyswietlWynalazki(pierwszyWynalazek);
+            break;
+            
+        case 6:
+            printf("Zamknij kartoteke");
+            break;
+        
+        default:
+            break;
+        }
+    } while (wybor != 6);
 
     return 0;
 }

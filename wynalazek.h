@@ -27,5 +27,7 @@ typedef struct Wezel {
 } Wezel;
 
 void wyswietlMenu();
+void dodajWynalazek(Wezel** glowa);
+void wyswietlWynalazki(Wezel* glowa);
 
 #endif
