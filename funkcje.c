@@ -124,3 +124,35 @@ void wczytajZPliku(Wezel** glowa, const char* nazwaPliku) {
     fclose(plik);
     printf("Dane wczytane pomyslnie z pliku %s\n", nazwaPliku);
 }
+
+void edytujWynalazek(Wezel* glowa) {
+    if (glowa == NULL) {
+        printf("Brak wynalazkow do edycji.\n");
+        return;
+    }
+
+    char szukanaNazwa[101];
+    printf("Podaj nazwe wynalazku do edycji: ");
+    scanf("%100s", szukanaNazwa);
+
+    Wezel* aktualny = glowa;
+    while (aktualny != NULL) {
+        if (strcmp(aktualny->dane.nazwa, szukanaNazwa) == 0){
+            printf("Edycja wynalazku: %s\n", aktualny->dane.nazwa);
+
+            printf("Podaj nowy typ wynalazku: ");
+            scanf("%50s", aktualny->dane.typ);
+
+            printf("Podaj nowa niezawodnosc (0-100): ");
+            scanf("%d", &aktualny->dane.niezawodnosc);
+
+            printf("Podaj nowe zapotrzebowanie na energie: ");
+            scanf("%f", &aktualny->dane.zapotrzebowanieEnergii);
+
+            printf("Wynalazek zaktualizowany pomyslnie!\n");
+            return;
+        }
+        aktualny = aktualny->nastepny;
+    }
+    printf("Nie znaleziono wynalazku o podanej nazwie.\n");
+}

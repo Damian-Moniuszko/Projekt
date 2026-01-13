@@ -35,6 +35,9 @@ int main(int argc, char* argv[]){
         case 2:
             wyswietlWynalazki(pierwszyWynalazek);
             break;
+
+        case 3:
+            edytujWynalazek(pierwszyWynalazek);
             
         case 6:
             zapiszDoPliku(pierwszyWynalazek, nazwaPliku);

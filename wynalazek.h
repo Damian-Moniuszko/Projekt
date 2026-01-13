@@ -31,5 +31,6 @@ void dodajWynalazek(Wezel** glowa);
 void wyswietlWynalazki(Wezel* glowa);
 void zapiszDoPliku(Wezel* glowa, const char* nazwaPliku);
 void wczytajZPliku(Wezel** glowa, const char* nazwaPliku);
+void edytujWynalazek(Wezel* glowa);
 
 #endif
