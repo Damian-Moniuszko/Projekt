@@ -156,3 +156,36 @@ void edytujWynalazek(Wezel* glowa) {
     }
     printf("Nie znaleziono wynalazku o podanej nazwie.\n");
 }
+
+void usunWynalazek(Wezel** glowa){
+    if (*glowa == NULL) {
+        printf("Brak wynalazkow do usuniecia.\n");
+        return;
+    }
+    
+    char szukanaNazwa[101];
+    printf("Podaj nazwe wynalazku do usuniecia: ");
+    scanf("%100s", szukanaNazwa);
+
+    Wezel* aktualny = *glowa;
+    Wezel* poprzedni = NULL;
+
+    while (aktualny != NULL && strcmp(aktualny->dane.nazwa, szukanaNazwa) != 0) {
+        poprzedni = aktualny;
+        aktualny = aktualny->nastepny;
+    }
+
+    if (aktualny == NULL) {
+        printf("Nie znaleziono wynalazku o podanej nazwie.\n");
+        return;
+    }
+
+    if (poprzedni == NULL) {
+        *glowa = aktualny->nastepny;
+    } else {
+        poprzedni->nastepny = aktualny->nastepny;
+    }
+
+    free(aktualny);
+    printf("Wynalazek usuniety pomyslnie!\n");
+}

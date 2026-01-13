@@ -38,6 +38,11 @@ int main(int argc, char* argv[]){
 
         case 3:
             edytujWynalazek(pierwszyWynalazek);
+            break;
+
+        case 4:
+            usunWynalazek(&pierwszyWynalazek);
+            break;
             
         case 6:
             zapiszDoPliku(pierwszyWynalazek, nazwaPliku);
