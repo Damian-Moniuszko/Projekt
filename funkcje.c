@@ -6,8 +6,9 @@ void wyswietlMenu() {
     printf("2. Wyswietl wszystkie wynalazki\n");
     printf("3. Edytuj wynalazek\n");
     printf("4. Usun wynalazek\n");
-    printf("5. Szukaj/Sortuj\n");
-    printf("6. Zapisz i Wyjdz\n");
+    printf("5. Szukaj wynalazek\n");
+    printf("6. Sortuj wynalazki\n");
+    printf("7. Zapisz i Wyjdz\n");
     printf("Wybor: ");
 }
 
@@ -188,4 +189,83 @@ void usunWynalazek(Wezel** glowa){
 
     free(aktualny);
     printf("Wynalazek usuniety pomyslnie!\n");
+}
+
+void szukajWynalazek(Wezel* glowa) {
+    char szukanaNazwa[101];
+    printf("Podaj nazwe wynalazku do wyszukania: ");
+    scanf("%100s", szukanaNazwa);
+
+    Wezel* aktualny = glowa;
+    while (aktualny != NULL) {
+        if (strcmp(aktualny->dane.nazwa, szukanaNazwa) == 0) {
+            printf("---WYNALAZEK---\n");
+            printf("Nazwa: %s\n", aktualny->dane.nazwa);
+            printf("Typ: %s\n", aktualny->dane.typ);
+            printf("Niezawodnosc: %d\n", aktualny->dane.niezawodnosc);
+            printf("Zapotrzebowanie na energie: %.2f\n", aktualny->dane.zapotrzebowanieEnergii);
+            printf("Status: %d\n", aktualny->dane.status);
+            return;
+        }
+        aktualny = aktualny->nastepny;
+    }
+    printf("Nie znaleziono wynalazku o podanej nazwie.\n");
+}
+
+void sortujWynalazki(Wezel* glowa) {
+    if (glowa == NULL || glowa->nastepny == NULL) {
+        printf("Brak wystarczajacej liczby elementów do sortowania.\n");
+        return;
+    }
+
+    int tryb;
+    printf("Wybierz pole do sortowania:\n1. Nazwa (alfabetycznie)\n2. Niezawodnosc (liczbowo)\nWybor: ");
+    scanf("%d", &tryb);
+
+    int zamiana;
+    Wezel* obecny;
+    Wezel* ostatni = NULL;
+
+    do {
+        zamiana = 0;
+        obecny = glowa;
+
+        while (obecny->nastepny != ostatni) {
+            int czyZamienic = 0;
+
+            if (tryb == 1) {
+                if (strcmp(obecny->dane.nazwa, obecny->nastepny->dane.nazwa) > 0) {
+                    czyZamienic = 1;
+                }
+            } else {
+                if (obecny->dane.niezawodnosc < obecny->nastepny->dane.niezawodnosc) {
+                    czyZamienic = 1;
+                }
+            }
+
+            if (czyZamienic) {
+                Wynalazek temp = obecny->dane;
+                obecny->dane = obecny->nastepny->dane;
+                obecny->nastepny->dane = temp;
+                zamiana = 1;
+            }
+            obecny = obecny->nastepny;
+        }
+        ostatni = obecny;
+    } while (zamiana);
+
+    printf("Sortowanie zakonczone sukcesem!\n");
+}
+
+void wyczyscListe(Wezel** glowa) {
+    Wezel* aktualny = *glowa;
+    Wezel* nastepny;
+
+    while (aktualny != NULL) {
+        nastepny = aktualny->nastepny;
+        free(aktualny);
+        aktualny = nastepny;
+    }
+
+    *glowa = NULL;
 }

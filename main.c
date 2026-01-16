@@ -43,15 +43,25 @@ int main(int argc, char* argv[]){
         case 4:
             usunWynalazek(&pierwszyWynalazek);
             break;
-            
+
+        case 5:
+            szukajWynalazek(pierwszyWynalazek);
+            break;
+
         case 6:
+            sortujWynalazki(pierwszyWynalazek);
+            break;
+            
+        case 7:
             zapiszDoPliku(pierwszyWynalazek, nazwaPliku);
             break;
         
         default:
             break;
         }
-    } while (wybor != 6);
+    } while (wybor != 7);
+
+    wyczyscListe(&pierwszyWynalazek);
 
     return 0;
 }
